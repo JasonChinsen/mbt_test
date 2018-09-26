@@ -67,7 +67,7 @@ jobs:
           pwd
           git diff
           git stash
-          mbt build commit $(git rev-parse HEAD) -c
+          mbt build commit $(git rev-parse HEAD) -c --debug
 
 workflows:
   version: 2
