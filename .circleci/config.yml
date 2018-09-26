@@ -62,7 +62,7 @@ jobs:
         name: mbt test
         command: |
           export LD_LIBRARY_PATH=/usr/local/lib
-          mbt build branch --in . --debug
+          mbt build commit $(git rev-parse HEAD) -c
 
 workflows:
   version: 2
