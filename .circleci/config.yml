@@ -38,6 +38,7 @@ jobs:
     - run:
         name: install mbt
         command: |
+          mkdir ~/tmp && ~/tmp
           apt-get update
           apt install -y build-essential libffi-dev cmake
           #apt-get purge -y libgit2-0 libgit2-dev
