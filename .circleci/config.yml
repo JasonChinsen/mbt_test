@@ -40,7 +40,7 @@ jobs:
         command: |
           apt-get update
           apt install -y build-essential libffi-dev cmake
-#          apt-get purge -y libgit2-0 libgit2-dev
+          #apt-get purge -y libgit2-0 libgit2-dev
 
           # build and install libgit2
           export LIBGIT2_VERSION=0.26.6
