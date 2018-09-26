@@ -2,7 +2,7 @@ version: 2
 jobs:
   checkout:
     docker:
-    - image: whogan/golang1.11
+    - image: golang:latest
     steps:
     - restore_cache:
         keys:
@@ -19,7 +19,7 @@ jobs:
   deployall:
     working_directory: ~/mbt_test
     docker:
-    - image: saturnsonic-docker-release.jfrog.io/ci/docker-git-node94:latest
+    - image: golang:latest
     steps:
     - setup_remote_docker
     - restore_cache:
