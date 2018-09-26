@@ -62,6 +62,8 @@ jobs:
         name: mbt test
         command: |
           export LD_LIBRARY_PATH=/usr/local/lib
+          git diff
+          git stash
           mbt build commit $(git rev-parse HEAD) -c
 
 workflows:
