@@ -1,0 +1,6 @@
+name: test_a
+build:
+  darwin:
+    cmd: ../scripts/deploy.sh
+  linux:
+    cmd: ../scripts/deploy.sh

@@ -1,0 +1,74 @@
+version: 2
+jobs:
+  checkout:
+    docker:
+    - image: whogan/golang1.11
+    steps:
+    - restore_cache:
+        keys:
+        - v1-source-{{ .Branch }}-{{ .Revision }}
+        - v1-source-{{ .Branch }}
+        - v1-source-
+    - checkout:
+        path: ~/mbt_test
+    - save_cache:
+        key: v1-source-{{ .Branch }}-{{ .Revision }}
+        paths:
+        - "~/mbt_test/.git"
+
+  deployall:
+    working_directory: ~/mbt_test
+    docker:
+    - image: saturnsonic-docker-release.jfrog.io/ci/docker-git-node94:latest
+    steps:
+    - setup_remote_docker
+    - restore_cache:
+        keys:
+        - v1-source-{{ .Branch }}-{{ .Revision }}
+        - v1-source-{{ .Branch }}
+        - v1-source-
+    - run:
+        name: Checkout from cache
+        command: git checkout -f
+    - restore_cache:
+        keys:
+        - v1-images-{{ .Branch }}
+        paths:
+        - /caches/images.tar
+    - run:
+        name: install mbt
+        command: |
+          apt-get update
+          apt install -y build-essential libffi-dev cmake
+          apt-get purge -y libgit2-0 libgit2-dev
+
+          # build and install libgit2
+          export LIBGIT2_VERSION=0.26.6
+          wget https://github.com/libgit2/libgit2/archive/v${LIBGIT2_VERSION}.tar.gz
+          tar xzf v${LIBGIT2_VERSION}.tar.gz
+          cd libgit2-${LIBGIT2_VERSION}/
+          cmake .
+          make
+          make install
+
+          # build and install mbt
+          export LD_LIBRARY_PATH=/usr/local/lib
+
+          go get github.com/mbtproject/mbt
+          cd $GOPATH/src/github.com/mbtproject/mbt
+          make build
+          make install
+    - run:
+        name: mbt test
+        command: |
+          mbt build branch --in . --debug
+
+workflows:
+  version: 2
+  test_and_build:
+    jobs:
+    - checkout
+    - deployall:
+        requires:
+          - checkout
+
