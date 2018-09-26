@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "building"
+
 echo ${MBT_MODULE_NAME}
 echo ${MBT_MODULE_PATH}
 echo ${MBT_MODULE_VERSION}
