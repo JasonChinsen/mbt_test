@@ -61,6 +61,7 @@ jobs:
     - run:
         name: mbt test
         command: |
+          export LD_LIBRARY_PATH=/usr/local/lib
           mbt build branch --in . --debug
 
 workflows:
