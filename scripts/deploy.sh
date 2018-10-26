@@ -8,4 +8,4 @@ echo "mbt_module_version: ${MBT_MODULE_VERSION}"
 echo "mbt_module_commit: ${MBT_BUILD_COMMIT}"
 echo "mbt_repo_path: ${MBT_REPO_PATH}"
 
-ls -lrat vendor
+tree

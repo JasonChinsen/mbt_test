@@ -40,7 +40,7 @@ jobs:
         command: |
           mkdir ~/build && cd ~/build
           apt-get update
-          apt install -y build-essential libffi-dev cmake
+          apt install -y build-essential libffi-dev cmake tree
           #apt-get purge -y libgit2-0 libgit2-dev
 
           # build and install libgit2
@@ -59,6 +59,7 @@ jobs:
           cd $GOPATH/src/github.com/mbtproject/mbt
           make build
           make install
+
     - run:
         name: mbt test
         command: |
