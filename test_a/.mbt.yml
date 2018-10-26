@@ -5,4 +5,4 @@ build:
   linux:
     cmd: ../scripts/deploy.sh
 fileDependencies:
-  - "../vendor/test.txt"
+  - "../vendor/foo.txt"
